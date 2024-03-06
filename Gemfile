@@ -1,7 +1,12 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-group :development do
-  gem 'rubocop', '~> 1.50', require: false
-  gem 'erb_lint', require: false
-  gem 'solargraph', group: :development
+ruby "3.3.0"
+
+group :development, :test do
+
+  gem "standard"
+  gem "standard-rails"
+  gem "rufo"
+  gem "solargraph"
+  gem "ruby-lsp-rails"
 end
