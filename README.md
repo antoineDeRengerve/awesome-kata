@@ -3,6 +3,6 @@ My personal practice on the [awesome-katas](https://github.com/gamontal/awesome-
 
 # Run tests
 
-```ruby
-ruby -Ilib:test test/*
+```bash
+rake test
 ```
