@@ -4,5 +4,5 @@ My personal practice on the [awesome-katas](https://github.com/gamontal/awesome-
 # Run tests
 
 ```ruby
-ruby -Ilib:test test/test_kata2_karate_chop.rb
+ruby -Ilib:test test/*
 ```
