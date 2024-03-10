@@ -1,9 +1,7 @@
 module Kata2
   class KarateGuy
-    CHOP_STRATEGY = [:chop_1, :chop_2]
-
     def initialize(strategy)
-      raise ArgumentError, "strategy is unknown" unless CHOP_STRATEGY.include?(strategy)
+      raise ArgumentError, "strategy is unknown" unless respond_to?(strategy, true)
       @strategy = strategy
     end
 
@@ -14,6 +12,11 @@ module Kata2
     end
 
     private
+
+    def chop_1(target, array)
+      # p "#{target} - #{array} "
+      recursive_chop(target, array, 0)
+    end
 
     def recursive_chop(target, array, index_array)
       # p "recursive: #{target} - #{array} - #{index_array}"
@@ -34,11 +37,6 @@ module Kata2
       else
         recursive_chop(target, array[0...center], index_array)
       end
-    end
-
-    def chop_1(target, array)
-      # p "#{target} - #{array} "
-      recursive_chop(target, array, 0)
     end
 
     def chop_2(target, array)
@@ -65,6 +63,29 @@ module Kata2
         center_id
       else
         -1
+      end
+    end
+
+    def chop_3(target, array)
+      # p "chop3: #{target} - #{array} "
+      if array.empty?
+        -1
+      else
+        recursive_chop_2(target, array, 0, array.size)
+      end
+    end
+
+    def recursive_chop_2(target, array, start_id, end_id)
+      # p "recursive2: #{target} - #{array} - #{start_id} / #{end_id}"
+      center_id = (start_id + end_id) / 2
+      if array[center_id] == target
+        center_id
+      elsif start_id == end_id
+        -1
+      elsif array[center_id] < target
+        recursive_chop_2(target, array, center_id + 1, end_id)
+      else
+        recursive_chop_2(target, array, 0, center_id)
       end
     end
   end
