@@ -15,23 +15,21 @@ module Kata2
 
     def chop_1(target, array)
       # p "#{target} - #{array} "
-      recursive_chop(target, array, 0)
+      if array.empty?
+        -1
+      else
+        recursive_chop(target, array, 0)
+      end
     end
 
     def recursive_chop(target, array, index_array)
-      # p "recursive: #{target} - #{array} - #{index_array}"
+      p "recursive: #{target} - #{array} - #{index_array}"
       size = array.size
       center = size / 2
-      if size == 0
-        -1
-      elsif size == 1
-        if target == array[0]
-          index_array
-        else
-          -1
-        end
-      elsif target == array[center]
+      if target == array[center]
         index_array + center
+      elsif size == 1
+        -1
       elsif target > array[center]
         recursive_chop(target, array[center..], index_array + center)
       else
