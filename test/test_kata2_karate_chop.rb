@@ -38,4 +38,8 @@ class TestKata2KarateChop < Minitest::Test
   def test_chop_3
     eval_chop(Kata2::KarateGuy.new(:chop_3))
   end
+
+  def test_chop_4
+    eval_chop(Kata2::KarateGuy.new(:chop_4))
+  end
 end

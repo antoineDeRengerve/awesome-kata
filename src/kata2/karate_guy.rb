@@ -1,5 +1,6 @@
 module Kata2
   class KarateGuy
+    AUTHORIZED_STRATEGY = ["chop1", "chop2", "chop3", "chop4"].freeze
     def initialize(strategy)
       raise ArgumentError, "strategy is unknown" unless respond_to?(strategy, true)
       @strategy = strategy
@@ -23,7 +24,7 @@ module Kata2
     end
 
     def recursive_chop(target, array, index_array)
-      p "recursive: #{target} - #{array} - #{index_array}"
+      # p "recursive: #{target} - #{array} - #{index_array}"
       size = array.size
       center = size / 2
       if target == array[center]
@@ -39,7 +40,6 @@ module Kata2
 
     def chop_2(target, array)
       # p "#{target} - #{array} "
-
       return -1 if array.empty?
 
       start_id = 0
@@ -84,6 +84,34 @@ module Kata2
         recursive_chop_2(target, array, center_id + 1, end_id)
       else
         recursive_chop_2(target, array, 0, center_id)
+      end
+    end
+
+    def chop_4(target, array)
+      # p "chop4: #{target} - #{array} "
+      if array.empty?
+        -1
+      end
+      # iterative chop on sliced array
+      working_array = array
+      working_index = 0
+      while working_array.size > 1
+        center_id = (working_array.size - 1) / 2
+        # p "working_array: #{target}: #{working_array} - #{working_index} - #{center_id}"
+        if target == working_array[center_id]
+          return working_index + center_id
+        elsif target > working_array[center_id]
+          working_index += center_id + 1
+          working_array = working_array[center_id + 1..]
+        else
+          working_array = working_array[0...center_id]
+        end
+      end
+
+      if working_array.first == target
+        working_index
+      else
+        -1
       end
     end
   end
