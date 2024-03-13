@@ -1,6 +1,6 @@
 module Kata2
   class KarateGuy
-    AUTHORIZED_STRATEGY = ["chop1", "chop2", "chop3", "chop4"].freeze
+    AUTHORIZED_STRATEGY = ["chop1", "chop2", "chop3", "chop4", "chop5"].freeze
     def initialize(strategy)
       raise ArgumentError, "strategy is unknown" unless respond_to?(strategy, true)
       @strategy = strategy
@@ -107,7 +107,31 @@ module Kata2
           working_array = working_array[0...center_id]
         end
       end
+      if working_array.first == target
+        working_index
+      else
+        -1
+      end
+    end
 
+    # @param [Integer] target value to be found
+    # @param [Array] array of integers to be searched
+    # @return [Integer] index of the target value in the array, or -1 if the target value is not found
+    def chop_5(target, array)
+      return -1 if array.empty?
+
+      working_array = array
+      working_index = 0
+      while working_array.size > 1
+        # p "working_array: #{target}: #{working_array} - #{working_index} -  #{(working_array.size - 1) / 2}"
+        center_id = (working_array.size - 1) / 2
+        if working_array[center_id] < target
+          working_index += center_id + 1
+          working_array.shift(center_id + 1)
+        else
+          working_array.pop(working_array.size - center_id - 1)
+        end
+      end
       if working_array.first == target
         working_index
       else
